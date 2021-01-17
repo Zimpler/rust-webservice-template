@@ -1,0 +1,28 @@
+refresh_rate: 30 seconds
+
+appenders:
+  stdout_logger:
+    kind: console
+    encoder:
+      pattern: "{d} [{l:5.5}] {t}: {m}{n}"
+
+  file_logger:
+    kind: file
+    path: "log/{{project-name}}.log"
+    encoder:
+      pattern: "{d} [{l:5.5}] {t}: {m}{n}"
+
+root:
+  appenders:
+    - stdout_logger
+    - file_logger
+
+loggers:
+  html5ever:
+    level: error
+  {{crate_name}}:
+    level: trace
+  reqwest:
+    level: warn
+  selectors:
+    level: warn
