@@ -5,10 +5,11 @@ use actix_web::{App, HttpServer};
 use chrono::Utc;
 #[allow(unused_imports)]
 use log::{debug, error, info, trace, warn};
-use sqlx::postgres::PgPoolOptions;
 use uuid::Uuid;
+use postgres::*;
 
 mod config;
+mod postgres;
 mod status;
 
 #[actix_web::main]
@@ -19,11 +20,7 @@ async fn main() -> std::io::Result<()> {
     let config = config::get_config().expect("failed to read configuration");
 
     debug!("Initializing Postgres database");
-    let pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&config.postgres.connection_string())
-        .await
-        .unwrap();
+    let pool = postgres::create_pool(&config);
 
     // // Example statement.
     // sqlx::query!(
