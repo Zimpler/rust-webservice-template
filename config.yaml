@@ -4,6 +4,7 @@ database:
   database_name: {{project-name}}
   username: postgres
   password: password
+  max_pool_connections: 5
 
 server:
   port: 3000

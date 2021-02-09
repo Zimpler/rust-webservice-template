@@ -11,11 +11,21 @@ pub struct DatabaseConfig {
     pub database_name: String,
     pub username: String,
     pub password: String,
+    pub max_pool_connections: u32,
 }
 
 #[derive(Debug, serde::Deserialize)]
 pub struct ServerConfig {
     pub port: u16,
+}
+
+impl Default for DatabaseConfig {
+    fn default() -> Self {
+        DatabaseConfig {
+            max_pool_connections: 5,
+            ..Default::default()
+        }
+    }
 }
 
 impl DatabaseConfig {
