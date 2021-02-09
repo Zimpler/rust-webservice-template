@@ -1,11 +1,11 @@
 #[derive(Debug, serde::Deserialize)]
 pub struct Config {
-    pub database: DatabaseConfig,
+    pub postgres: PostgresConfig,
     pub server: ServerConfig,
 }
 
 #[derive(Debug, serde::Deserialize)]
-pub struct DatabaseConfig {
+pub struct PostgresConfig {
     pub host: String,
     pub port: u16,
     pub database_name: String,
@@ -19,16 +19,16 @@ pub struct ServerConfig {
     pub port: u16,
 }
 
-impl Default for DatabaseConfig {
+impl Default for PostgresConfig {
     fn default() -> Self {
-        DatabaseConfig {
+        PostgresConfig {
             max_pool_connections: 5,
             ..Default::default()
         }
     }
 }
 
-impl DatabaseConfig {
+impl PostgresConfig {
     pub fn connection_string(&self) -> String {
         format!(
             "postgres://{}:{}@{}:{}/{}",
