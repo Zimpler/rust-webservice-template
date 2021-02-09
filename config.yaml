@@ -1,4 +1,4 @@
-database:
+postgres:
   host: localhost
   port: 5432
   database_name: {{project-name}}

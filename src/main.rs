@@ -18,10 +18,10 @@ async fn main() -> std::io::Result<()> {
     debug!("Loading configuration");
     let config = config::get_config().expect("failed to read configuration");
 
-    debug!("Initializing database");
+    debug!("Initializing Postgres database");
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect(&config.database.connection_string())
+        .connect(&config.postgres.connection_string())
         .await
         .unwrap();
 
